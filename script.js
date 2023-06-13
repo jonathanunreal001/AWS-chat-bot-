@@ -53,58 +53,62 @@ document.addEventListener('DOMContentLoaded', function() {
     chatLog.scrollTop = chatLog.scrollHeight;
 
   }
-
+  
   function sendToBackend(message) {
 
-    // Replace 'your-lambda-endpoint' with the actual endpoint of your AWS Lambda function
+  // Replace 'yourambda-endpoint' with the actual endpoint of your AWS Lambda function
 
-    const endpoint = 'https://ofguzoy212.execute-api.ap-south-1.amazonaws.com/default/ChatGPT';
+  const endpoint = 'https://ofguzoy212.execute-api.ap-south-1.amazonaws.com/default/ChatGPT';
 
-    const apiKey = 'CG5c4UcJq86cTO2zuGD078DBKYcKXIfHaWjo4ato';  // Replace with the API key required by your backend
+  const apiKey = 'CG5c4UcJq86cTO2zuGD078DBKYcKXIfHaWjo4ato';  // Replace with the API key required by your backend
 
-    fetch(endpoint, {
+  fetch(endpoint, {
 
-      method: 'POST',
+    method: 'POST',
 
-      headers: {
+    headers: {
 
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
 
-        'x-api-key': apiKey,
+      'x-api-key': apiKey,
+
+    },
+
+    body: JSON.stringify({
+
+      queryStringParameters: {
+
+        apiKey: apiKey,
 
       },
 
-      body: JSON.stringify({
+      body: {
 
-        queryStringParameters: {
+        input: message,
 
-          apiKey: apiKey,
+      },
 
-        },
+    }),
 
-        body: {
+  })
 
-          input: message,
+  .then(response => response.text())
 
-        },
+  .then(botResponse => {
 
-      }),
+    // Append bot response to the chat log
 
-    })
+    appendMessage('Chatbot', botResponse);
 
-    .then(response => response.text())
+  })
 
-    .then(botResponse => {
+  .catch(error => console.error('Error:', error));
 
-      // Append bot response to the chat log
+}
+  
+  
 
-      appendMessage('Chatbot', botResponse);
 
-    })
 
-    .catch(error => console.error('Error:', error));
-
-  }
-
-});
-
+  
+  
