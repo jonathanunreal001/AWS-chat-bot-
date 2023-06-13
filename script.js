@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const sendButton = document.getElementById('send-button');
 
-  // Event listener for when the user clicks the "Send" button or presses Enter
+  const apiKey = 'CG5c4UcJq86cTO2zuGD078DBKYcKXIfHaWjo4ato'; // Replace with your actual API key
 
   sendButton.addEventListener('click', sendMessage);
 
@@ -26,15 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (message !== '') {
 
-      // Clear user input field
-
       userInput.value = '';
 
-      // Append user message to the chat log
-
       appendMessage('You', message);
-
-      // Send user message to the backend
 
       sendToBackend(message);
 
@@ -53,61 +47,49 @@ document.addEventListener('DOMContentLoaded', function() {
     chatLog.scrollTop = chatLog.scrollHeight;
 
   }
-  
+
   function sendToBackend(message) {
 
-  // Replace 'yourambda-endpoint' with the actual endpoint of your AWS Lambda function
+    const endpoint = 'https://ofguzoy212.execute-api.ap-south-1.amazonaws.com/default/ChatGPT';
 
-  const endpoint = 'https://ofguzoy212.execute-api.ap-south-1.amazonaws.com/default/ChatGPT';
+    fetch(endpoint, {
 
-  const apiKey = 'CG5c4UcJq86cTO2zuGD078DBKYcKXIfHaWjo4ato';  // Replace with the API key required by your backend
+      method: 'POST',
 
-  fetch(endpoint, {
+      headers: {
 
-    method: 'POST',
+        'Content-Type': 'application/json',
 
-    headers: {
+        'x-api-key': apiKey,
 
-      'Content-Type': 'application/json',
+      },
 
-      'x-api-key': apiKey,
-
-    },
-
-    body: JSON.stringify({
-
-      queryStringParameters: {
+      body: JSON.stringify({
 
         apiKey: apiKey,
 
-      },
-
-      body: {
-
         input: message,
 
-      },
+      }),
 
-    }),
+    })
 
-  })
+      .then(response => response.text())
 
-  .then(response => response.text())
+      .then(botResponse => {
 
-  .then(botResponse => {
+        appendMessage('Chatbot', botResponse);
 
-    // Append bot response to the chat log
+      })
 
-    appendMessage('Chatbot', botResponse);
+      .catch(error => console.error('Error:', error));
 
-  })
+  }
 
-  .catch(error => console.error('Error:', error));
+});
 
-}
-  
-  
 
+ 
 
 
   
