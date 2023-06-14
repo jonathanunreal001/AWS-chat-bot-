@@ -68,9 +68,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
-      .then(response => response.text())
+      .then(response => response.json())
 
-      .then(botResponse => {
+      .then(data => {
+
+        const botResponse = data.body;
 
         console.log('Received response from backend:', botResponse); // Add this line for debugging
 
