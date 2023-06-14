@@ -74,23 +74,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
-      .then(response => response.text())
+    .then(response => response.text())
 
-      .then(botResponse => {
+    .then(botResponse => {
 
-        appendMessage('Chatbot', botResponse);
+      appendMessage('Chatbot', botResponse);
 
-      })
+    })
 
-      .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error:', error));
 
   }
 
 });
 
 
- 
 
 
-  
-  
