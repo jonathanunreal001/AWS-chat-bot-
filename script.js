@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const sendButton = document.getElementById('send-button');
 
-  const apiKey = 'CG5c4UcJq86cTO2zuGD078DBKYcKXIfHaWjo4ato'; // Replace with your actual API key
-
   sendButton.addEventListener('click', sendMessage);
 
   userInput.addEventListener('keypress', function(event) {
@@ -48,53 +46,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
   }
 
-function sendToBackend(message) {
+  function sendToBackend(message) {
 
-  const endpoint = 'https://ofguzoy212.execute-api.ap-south-1.amazonaws.com/default/ChatGPT';
+    const endpoint = 'https://azqudae9qd.execute-api.ap-south-1.amazonaws.com/default/ChatGPT';
 
-  fetch(endpoint, {
+    fetch(endpoint, {
 
-    method: 'POST',
+      method: 'POST',
 
-    headers: {
+      headers: {
 
-      'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
 
-      'x-api-key': apiKey,
+      },
 
-    },
+      body: JSON.stringify({
 
-    body: JSON.stringify({
+        input: message,
 
-      apiKey: apiKey,
-
-      input: message,
-
-    }),
-
-  })
-
-    .then(response => response.text())
-
-    .then(botResponse => {
-
-      console.log('Received response from backend:', botResponse); // Add this line for debugging
-
-      appendMessage('Chatbot', botResponse);
+      }),
 
     })
 
-    .catch(error => console.error('Error:', error));
+      .then(response => response.text())
 
-}
-  
-  
-  
+      .then(botResponse => {
 
+        console.log('Received response from backend:', botResponse); // Add this line for debugging
 
+        appendMessage('Chatbot', botResponse);
+
+      })
+
+      .catch(error => console.error('Error:', error));
+
+  }
 
 });
-
-
-
-
