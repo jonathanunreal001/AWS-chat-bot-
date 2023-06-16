@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function sendToBackend(message) {
 
-    const endpoint = 'https://azqudae9qd.execute-api.ap-south-1.amazonaws.com/default/ChatGPT';
+    const endpoint = 'https://dlu7znj2i0.execute-api.ap-south-1.amazonaws.com/ChatGPTapi/myapiresource';
 
     fetch(endpoint, {
 
